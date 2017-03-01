@@ -1,26 +1,8 @@
-// import React from 'react';
-// import { render } from 'react-dom';
-// import * as skate from 'skatejs';
-
-// console.log(skate);
-
-// render(<h1>Hello.</h1>, document.getElementById('root'));
-
-
+import './native-shim';
 import React from 'react';
 import { render } from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import App from './App';
+import './components/SkateButton';
 
-const load = () => render((
-  <AppContainer>
-    <App />
-  </AppContainer>
-), document.getElementById('root'));
+console.log(skate);
 
-// This is needed for hot-module-replacement
-if (module.hot) {
-  module.hot.accept('./App', load);
-}
-
-load();
+render(<h1>Hello. <x-hello name="Joe" /></h1>, document.getElementById('root'));

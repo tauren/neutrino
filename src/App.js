@@ -1,9 +1,5 @@
-// import './native-shim';
-import React from 'react';
 import './App.css';
 import './components/SkateButton';
-// import './components/TagButton';
-// import Button from './components/Button'
 
 const App = () => (
   <div className="App">
@@ -12,8 +8,5 @@ const App = () => (
     <x-hello name="Joe" />
   </div>
 );
-    // <x-frankenstein />
-    // <x-clock />
-    // <Button>Click Me</Button>
 
 export default App;

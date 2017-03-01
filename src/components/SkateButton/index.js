@@ -1,4 +1,3 @@
-// import '../../native-shim';
 import * as skate from 'skatejs';
 console.log('skate', skate)
 

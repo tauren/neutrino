@@ -9,6 +9,7 @@
     "skatejs": "^4.6.7"
   },
   "devDependencies": {
+    "babel-plugin-transform-custom-element-classes": "^0.1.0",
     "neutrino": "^4.3.0",
     "neutrino-preset-react": "^4.2.3"
   },

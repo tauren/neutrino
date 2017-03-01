@@ -1,0 +1,240 @@
+
+/*@import "settings/appMainButtonSettings";*/
+$app-main-button-state-pct: 3% !default;
+$app-main-button-border-darken-pct: 2% !default;
+$app-main-button-shadow: 0 1px 3px rgba(0, 0, 0, .25) !default;
+$app-main-button-disabled-shadow: none;
+$app-main-button-radius: 3px !default;
+$app-main-button-disabled-border-darken-pct: 8% !default;
+$app-main-button-disabled-text-opacity: .8 !default;
+$app-main-button-disabled-opacity: 0.3 !default;
+$app-main-button-spacing: .5em !default;
+
+$app-main-button-filter-color: #31373a;
+
+$app-main-button-group-filter-background-color: $app-main-button-filter-color;
+$app-main-button-group-filter-font-color: $app-main-button-filter-color;
+$app-main-button-group-filter-selected-background-color: $app-main-button-filter-color;
+$app-main-button-group-filter-selected-font-color: $app-main-button-group-selected-font-color;
+
+$app-main-button-group-dark-background-color: $app-main-button-filter-color;
+$app-main-button-group-dark-font-color: #ccc;
+$app-main-button-group-dark-selected-background-color: $app-main-button-filter-color;
+$app-main-button-group-dark-selected-font-color: $app-main-button-group-selected-font-color;
+
+/*@import "mixins/appMainButtonMixins";*/
+/**
+ * 1. Maintain button styles even if class is applied to an anchor tag.
+ */
+@mixin appMakeMainButton($background-color, $font-color: $app-dark-default-font-color, $state-factor: 1) {
+  color: $font-color;
+  text-decoration: none; /* [1] */
+  @if $background-color == transparent {
+    border-color: $background-color;
+  } @else {
+    border-color: darken($background-color, $app-main-button-border-darken-pct);
+  }
+  background-color: $background-color;
+
+  &:visited {
+    color: $font-color; /* [1] */
+    text-decoration: none; /* [1] */
+  }
+
+  &:hover {
+    color: $font-color; /* [1] */
+    text-decoration: none; /* [1] */
+    @if $background-color == transparent {
+      background-color: $background-color;
+    } @else {
+      background-color: lighten($background-color, $app-main-button-state-pct * $state-factor);
+    }
+  }
+
+  &:active {
+    color: $font-color; /* [1] */
+    text-decoration: none; /* [1] */
+    @if $background-color == transparent {
+      background-color: $background-color;
+    } @else {
+      background-color: darken($background-color, $app-main-button-state-pct * $state-factor);
+    }
+  }
+
+  @include baseMakeDisabledButtonStyle {
+    color: desaturate(rgba($font-color, $app-main-button-disabled-text-opacity), 100%);
+    opacity: $app-main-button-disabled-opacity;
+    @if $background-color == transparent {
+      border-color: $background-color;
+    } @else {
+      border-color: darken($background-color, $app-main-button-disabled-border-darken-pct);
+    }
+    &:hover,
+    &:active {
+      background-color: $background-color;
+    }
+  }
+}
+
+/*@import "modules/appMainButtonModule";*/
+/**
+ * 1. Vertically align this elements in case it's displayed inline with other
+ *    elements.
+ * 2. Mimic button behavior when this class is on divs and spans.
+ * 3. Retain appearance despite inherited font-size.
+ * 4. Readable line-height.
+ */
+.appMainButton {
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 1em 1.3em;
+  vertical-align: middle; /* [1] */
+  display: inline-block; /* [2] */
+  cursor: pointer; /* [2] */
+  font-size: remCalc(10px); /* [3] */
+  letter-spacing: emCalc(1px);
+  line-height: normal; /* [4] */
+  @include border-radius($app-main-button-radius);
+  @include transition(background-color .15s);
+  @include appMakeMainButton($app-light-action-primary-background-color);
+
+  @include baseMakeDisabledButtonStyle {
+    cursor: not-allowed;
+  }
+
+  & + & {
+    margin-left: .5em;
+  }
+
+  & + .appMainButtonGroup {
+    margin-left: $app-main-button-spacing;
+  }
+}
+
+.appMainButton--primary {
+  @include appMakeMainButton($app-status-primary-color);
+}
+
+.appMainButton--secondary {
+  @include appMakeMainButton($app-light-action-secondary-background-color, $app-status-primary-color);
+}
+
+.appMainButton--secondaryDark {
+  @include appMakeMainButton($app-dark-action-secondary-background-color);
+}
+
+.appMainButton--success {
+  @include appMakeMainButton($app-status-success-color);
+}
+
+.appMainButton--warning {
+  @include appMakeMainButton($app-status-warning-color);
+}
+
+.appMainButton--danger {
+  @include appMakeMainButton($app-status-danger-color, $app-dark-default-font-color, 2);
+}
+
+.appMainButton--transparent {
+  @include appMakeMainButton(transparent, $app-link-color);
+  @include transition($app-link-transition);
+  &:hover {
+    color: $app-link-hover-color;
+  }
+  @include baseMakeDisabledButtonStyle {
+    color: $app-link-color;
+  }
+}
+
+.appMainButton--transparentDark {
+  @include appMakeMainButton(transparent, $app-main-button-transparent-dark-font-color);
+  @include transition($app-link-transition);
+  &:hover {
+    color: darken($app-main-button-transparent-dark-font-color, $app-main-button-state-pct * 4);
+  }
+  @include baseMakeDisabledButtonStyle {
+    opacity: $app-main-button-disabled-opacity;
+  }
+}
+
+/**
+ * 1. Retain appearance despite inherited font-size.
+ */
+.appMainButton--cozy {
+  padding: remCalc(4px 8px 5px); /* [1] */
+}
+
+/**
+ * 1. Retain appearance despite inherited font-size.
+ */
+.appMainButton--large {
+  padding: remCalc(8px 14px 11px); /* [1] */
+  font-size: remCalc(16px); /* [1] */
+}
+
+.appMainButton--withDropdown {
+  position: relative;
+}
+
+/**
+ * 1. Resize button to expect the only descendent to be an icon, and not text.
+ */
+.appMainButton--iconOnly {
+  font-size: remCalc(16px); /* [1] */
+  padding-top: remCalc(6px); /* [1] */
+  padding-bottom: remCalc(7px); /* [1] */
+  &.appMainButton--cozy {
+    font-size: remCalc(15px); /* [1] */
+    padding-top: remCalc(1px); /* [1] */
+    padding-bottom: remCalc(2px); /* [1] */
+  }
+  &.appMainButton--large {
+    font-size: remCalc(20px); /* [1] */
+    padding-top: remCalc(7px); /* [1] */
+    padding-bottom: remCalc(7px); /* [1] */
+  }
+}
+
+
+/*@import "modules/appMainButtonGroupModule";*/
+.appMainButtonGroup {
+  @include appVerticalRhythm;
+  @include border-radius($app-main-button-radius);
+
+  .appMainButton {
+    background-color: transparent;
+    color: $app-status-primary-color;
+    border-color: $app-status-primary-color;
+  }
+
+  .is-button-selected {
+    color: $app-main-button-group-selected-font-color;
+    background-color: $app-status-primary-color;
+  }
+}
+
+.appMainButtonGroup--filter {
+  .appMainButton {
+    color: $app-main-button-group-filter-font-color;
+    border-color: $app-main-button-group-filter-background-color;
+  }
+
+  .is-button-selected {
+    color: $app-main-button-group-filter-selected-font-color;
+    background-color: $app-main-button-group-filter-selected-background-color;
+  }
+}
+
+.appMainButtonGroup--dark {
+  .appMainButton {
+    color: $app-main-button-group-dark-font-color;
+    border-color: $app-main-button-group-dark-background-color;
+  }
+
+  .is-button-selected {
+    color: $app-main-button-group-dark-selected-font-color;
+    background-color: $app-main-button-group-dark-selected-background-color;
+  }
+}

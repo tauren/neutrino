@@ -1,4 +1,4 @@
-// import './native-shim';  
+import './native-shim';  
 import React from 'react';
 import { render } from 'react-dom';
 import './components/SkateHello';

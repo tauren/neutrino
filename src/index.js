@@ -1,3 +1,4 @@
+import 'skatejs-web-components';
 // import './native-shim';  
 import React from 'react';
 import { render } from 'react-dom';

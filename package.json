@@ -29,9 +29,7 @@
       "entry": {
         "vendor": [
           "react",
-          "react-dom"
-        ],
-        "skate": [
+          "react-dom",
           "skatejs"
         ]
       }
